@@ -63,7 +63,7 @@ let styles = {
 		display: 'flex',
 		alignItems: 'stretch',
 		justifyContent: 'flex-start',
-		height: '100vh'
+		fontFamily: '\'Roboto\' sans-serif'
 	},
 	left: {
 		backgroundColor: '#efefef',
@@ -71,7 +71,8 @@ let styles = {
 		height: '100vh'
 	},
 	content: {
-
+		fontFamily: '\'Roboto\' sans-serif',
+		padding: '20px'
 	},
 	logo: {
 		backgroundImage: 'url(\'/img/logo.png\')',
