@@ -4,6 +4,6 @@ module.exports = {
 		baseUrl: 'http://localhost:3000'
 	},
 	api: {
-		baseUrl: 'http://localhost:3001'
+		baseUrl: 'http://localhost:3001/api'
 	}
 };

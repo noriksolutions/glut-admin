@@ -3,8 +3,12 @@
 let React = require('react');
 let ReactDOM = require('react-dom');
 let mainStyles = require('../styles/main');
+let styles = require('./styles/authorized');
 let Radium = require('radium');
 let lodash = require('lodash');
+let api = require('../api');
+let dispatcher = require('../utils/dispatcher');
+let config = require('../config');
 
 let viewLookup = {
 	Dashboard: require('./Dashboard'),
@@ -21,6 +25,22 @@ class Authorized extends React.Component {
 		this.state = {
 			active: 'Dashboard'
 		};
+	}
+
+	componentDidMount() {
+		dispatcher.on('config-ready', function() {
+			api.users.verifyAdmin()
+			.then(function() {
+				// noop
+			})
+			.catch(function() {
+				dispatcher.emit('logout');
+			});
+		});
+	}
+
+	logout() {
+		dispatcher.emit('logout');
 	}
 
 	setChoice(active) {
@@ -42,6 +62,9 @@ class Authorized extends React.Component {
 
 		return (
 			<div style={styles.container}>
+				<div style={styles.topBar}>
+					<a style={styles.topLink} onClick={this.logout.bind(this)}><i className="mdi mdi-lock"></i> logout</a>
+				</div>
 				<div style={styles.left}>
 					<div style={styles.logo}></div>
 					<a key="Dashboard" style={getStyle('Dashboard')} onClick={this.setChoice.bind(this, 'Dashboard')}>Dashboard</a>
@@ -58,47 +81,6 @@ class Authorized extends React.Component {
 	}
 };
 
-let styles = {
-	container: {
-		display: 'flex',
-		alignItems: 'stretch',
-		justifyContent: 'flex-start',
-		fontFamily: '\'Roboto\' sans-serif'
-	},
-	left: {
-		backgroundColor: '#efefef',
-		width: '200px',
-		height: '100vh'
-	},
-	content: {
-		fontFamily: '\'Roboto\' sans-serif',
-		padding: '20px'
-	},
-	logo: {
-		backgroundImage: 'url(\'/img/logo.png\')',
-		backgroundSize: '50%',
-		backgroundRepeat: 'no-repeat',
-		backgroundPosition: 'center center',
-		width: '100%',
-		paddingBottom: '50%',
-		marginBottom: '20px'
-	},
-	menuLink: {
-		display: 'block',
-		fontFamily: '\'Roboto\' sans-serif',
-		fontSize: '20px',
-		padding: '10px',
-		color: '#333',
-		':hover': {
-			backgroundColor: '#f9f',
-			color: '#333'
-		},
-		cursor: 'pointer'
-	},
-	activeMenuLink: {
-		color: '#fff',
-		backgroundColor: '#f7f'
-	}
-};
+
 
 module.exports = Radium(Authorized);

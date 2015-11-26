@@ -1,27 +1,24 @@
 let request = require('superagent');
 let querystring = require('querystring');
 let getToken = require('../utils/getToken');
-let config = require('../utils/config');
-
-function setJwt(options) {
-	options = options || {};
-	options.jwt = getToken();
-	return options;
-}
+let config = require('../config');
+let _ = require('lodash');
 
 function getQs(options) {
+	if (!options)
+		return '';
 	let qs = querystring.stringify(options);
 	if (qs) return '?' + qs;
 	return '';
 }
 
 function getRequest(url, options, verb) {
-	options = setJwt(options);
 	let useQs = ['get', 'del'].indexOf(verb) > -1 ? true : false;
 	let qs = useQs ? getQs(options) : '';
-	let newUrl = config.api.baseUrl + url + qs;
+	let baseUrl = _.get(config, 'api.baseUrl', '');
+	let newUrl = baseUrl + url + qs;
 	let promise = new Promise(function(resolve, reject) {
-		let req = request[verb](url);
+		let req = request[verb](newUrl).set('Authorization', 'JWT ' + getToken());
 		if (!useQs)
 			req = req.set('Content-Type', 'application/json').send(options);
 		req.end(function(err, res) {

@@ -5,7 +5,7 @@ let ReactDOM = require('react-dom');
 let Radium = require('radium');
 let _ = require('lodash');
 let mainStyles = require('../styles/main');
-let config = require('../utils/config');
+let config = require('../config');
 
 class Unauthorized extends React.Component {
 

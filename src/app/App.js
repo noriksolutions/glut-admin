@@ -7,9 +7,17 @@ let Unauthorized = require('./unauthorized/Unauthorized');
 let getToken = require('./utils/getToken');
 let _ = require('lodash');
 let ajax = require('./utils/ajax');
-let config = require('./utils/config');
+let config = require('./config');
+let dispatcher = require('./utils/dispatcher');
 
 class App extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			authorized: !!getToken()
+		};
+	}
 
 	componentDidMount() {
 		// set config singleton data
@@ -17,16 +25,20 @@ class App extends React.Component {
 		ajax.getJson('/config')
 		.then(function(json) {
 			_.assign(config, json);
+			dispatcher.emit('config-ready');
 		})
 		.catch(function(err) {
-			window.alert('Could not connect to application.');
+			window.alert('Could not get configuration.');
+		});
+		dispatcher.on('logout', function() {
+			window.history.replaceState({}, document.title, '/');
+			that.setState({ authorized: false });
 		});
 	}
 
 	render() {
 		let View = Unauthorized;
-		let jwt = getToken();
-		if (jwt)
+		if (this.state.authorized)
 			View = Authorized;
 		return <View />;
 	}
