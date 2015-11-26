@@ -8,10 +8,13 @@ let favicon = require('serve-favicon');
 app.use(express.static('public'));
 app.use(favicon(__dirname + '/../public/favicon.ico'));
 
-app.get('/api/config', function(req, res) {
+app.get('/config', function(req, res) {
   var publicConfig = {
     athu: {
       baseUrl: config.athu.baseUrl
+    },
+    api: {
+      baseUrl: config.api.baseUrl
     }
   };
   res.json(publicConfig);

@@ -1,3 +1,5 @@
+'use strict';
+
 let querystring = require('querystring');
 
 module.exports = function getToken() {

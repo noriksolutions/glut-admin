@@ -3,34 +3,23 @@
 let React = require('react');
 let ReactDOM = require('react-dom');
 let Radium = require('radium');
-let ajax = require('../utils/ajax');
 let _ = require('lodash');
 let mainStyles = require('../styles/main');
+let config = require('../utils/config');
 
 class Unauthorized extends React.Component {
 
 	onClick(ev) {
-		let baseUrl = _.get(this, 'state.baseUrl');
+		let baseUrl = _.get(config, 'athu.baseUrl');
 		if (baseUrl)
 			window.location = baseUrl + '/auth/google';
 		else
 			window.alert('Oops, an error occurred.');
 	}
 
-	componentDidMount() {
-		let that = this;
-		ajax.getJson('./api/config')
-		.then(function(json) {
-			that.setState({ baseUrl: json.athu.baseUrl });
-		})
-		.catch(function(err) {
-			window.alert('Could not connect to application.');
-		});
-	}
-
 	render() {
 		return (
-			<div style={mainStyles.container}>
+			<div style={[mainStyles.container, styles.intro]}>
 				<button onClick={this.onClick.bind(this)} style={mainStyles.button}>
 					Login with <i style={styles.i} className="mdi mdi-google"></i>
 					<span style={styles.google}>oogle</span></button>
@@ -40,6 +29,12 @@ class Unauthorized extends React.Component {
 };
 
 let styles = {
+	intro: {
+		backgroundImage: 'url(\'/img/intro-bg.jpg\')',
+		backgroundRepeat: 'no-repeat',
+		backgroundPosition: 'center center',
+		backgroundSize: 'cover'
+	},
 	google: {
 		color: 'rgb(213,15,37)'
 	},

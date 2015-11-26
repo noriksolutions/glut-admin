@@ -1,6 +1,7 @@
 let request = require('superagent');
 let querystring = require('querystring');
 let getToken = require('../utils/getToken');
+let config = require('../utils/config');
 
 function setJwt(options) {
 	options = options || {};
@@ -18,7 +19,7 @@ function getRequest(url, options, verb) {
 	options = setJwt(options);
 	let useQs = ['get', 'del'].indexOf(verb) > -1 ? true : false;
 	let qs = useQs ? getQs(options) : '';
-	let newUrl = url + qs;
+	let newUrl = config.api.baseUrl + url + qs;
 	let promise = new Promise(function(resolve, reject) {
 		let req = request[verb](url);
 		if (!useQs)
@@ -55,5 +56,8 @@ let api = {
 };
 
 require('./products').set(api);
+require('./users').set(api);
+require('./transactions').set(api);
+require('./variants').set(api);
 
 module.exports = api;
