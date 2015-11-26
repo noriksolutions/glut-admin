@@ -1,11 +1,20 @@
 'use strict';
 
 let React = require('react');
-let ReactDOM = require('react-dom');
+let Header = require('../components/Header');
 
 class Users extends React.Component {
+
+	newClick() {
+		console.log('new click');
+	}
+
 	render() {
-		return <div>Users</div>
+		return (
+			<div>
+				<Header h1="Users" newClick={this.newClick} newLabel="User" />
+			</div>
+		);
 	}
 }
 

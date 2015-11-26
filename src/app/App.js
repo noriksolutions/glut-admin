@@ -19,6 +19,11 @@ class App extends React.Component {
 		};
 	}
 
+	onLogout() {
+		window.history.replaceState({}, document.title, '/');
+		this.setState({ authorized: false });
+	}
+
 	componentDidMount() {
 		// set config singleton data
 		let that = this;
@@ -30,17 +35,20 @@ class App extends React.Component {
 		.catch(function(err) {
 			window.alert('Could not get configuration.');
 		});
-		dispatcher.on('logout', function() {
-			window.history.replaceState({}, document.title, '/');
-			that.setState({ authorized: false });
-		});
+		dispatcher.on('logout', this.onLogout.bind(this));
+	}
+
+	componentWillUnmount() {
+		dispatcher.off('logout', this.onLogout.bind(this));
 	}
 
 	render() {
 		let View = Unauthorized;
 		if (this.state.authorized)
 			View = Authorized;
-		return <View />;
+		return (
+			<View />
+		);
 	}
 }
 

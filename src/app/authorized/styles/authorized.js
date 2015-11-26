@@ -7,8 +7,9 @@ module.exports = {
 	},
 	topBar: {
 		position: 'absolute',
-		top: '20px',
-		right: '20px'
+		top: '32px',
+		right: '20px',
+		zIndex: 1
 	},
 	topLink: {
 		':hover': {
@@ -22,8 +23,7 @@ module.exports = {
 		height: '100vh'
 	},
 	content: {
-		fontFamily: '\'Roboto\' sans-serif',
-		padding: '20px'
+		paddingRight: 20
 	},
 	logo: {
 		backgroundImage: 'url(\'/img/logo.png\')',

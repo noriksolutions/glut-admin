@@ -2,6 +2,8 @@
 
 let React = require('react');
 let ReactDOM = require('react-dom');
+let mainStyles = require('../styles/main');
+let Radium = require('radium');
 
 class Dashboard extends React.Component {
 	render() {
@@ -15,4 +17,4 @@ class Dashboard extends React.Component {
 	}
 }
 
-module.exports = Dashboard;
+module.exports = Radium(Dashboard);

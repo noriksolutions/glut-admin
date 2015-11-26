@@ -1,11 +1,15 @@
 'use strict';
 
 let React = require('react');
-let ReactDOM = require('react-dom');
+let Header = require('../components/Header')
 
 class Transactions extends React.Component {
 	render() {
-		return <div>Transactions</div>
+		return (
+			<div>
+				<Header h1="Transactions" />
+			</div>
+		);
 	}
 }
 

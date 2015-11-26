@@ -22,7 +22,8 @@ class Unauthorized extends React.Component {
 			<div style={[mainStyles.container, styles.intro]}>
 				<button onClick={this.onClick.bind(this)} style={mainStyles.button}>
 					Login with <i style={styles.i} className="mdi mdi-google"></i>
-					<span style={styles.google}>oogle</span></button>
+					<span style={styles.google}>oogle</span>
+				</button>
 			</div>
 		);
 	}

@@ -47,7 +47,7 @@ let api = {
 	_put: function(url, options) {
 		return getRequest(url, options, 'put');
 	},
-	_delete: function(url, options) {
+	_del: function(url, options) {
 		return getRequest(url, options, 'del');
 	}
 };

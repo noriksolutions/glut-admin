@@ -9,6 +9,9 @@ let lodash = require('lodash');
 let api = require('../api');
 let dispatcher = require('../utils/dispatcher');
 let config = require('../config');
+let Grid = require('react-bootstrap').Grid;
+let Row = require('react-bootstrap').Row;
+let Col = require('react-bootstrap').Col;
 
 let viewLookup = {
 	Dashboard: require('./Dashboard'),
@@ -61,21 +64,27 @@ class Authorized extends React.Component {
 		let View = viewLookup[this.state.active];
 
 		return (
-			<div style={styles.container}>
+			<div>
 				<div style={styles.topBar}>
-					<a style={styles.topLink} onClick={this.logout.bind(this)}><i className="mdi mdi-lock"></i> logout</a>
+					<a onClick={this.logout.bind(this)} style={styles.topLink}><i className="mdi mdi-lock"></i> logout</a>
 				</div>
-				<div style={styles.left}>
-					<div style={styles.logo}></div>
-					<a key="Dashboard" style={getStyle('Dashboard')} onClick={this.setChoice.bind(this, 'Dashboard')}>Dashboard</a>
-					<a key="Transactions" style={getStyle('Transactions')} onClick={this.setChoice.bind(this, 'Transactions')}>Transactions</a>
-					<a key="Users" style={getStyle('Users')} onClick={this.setChoice.bind(this, 'Users')}>Users</a>
-					<a key="Products" style={getStyle('Products')} onClick={this.setChoice.bind(this, 'Products')}>Products</a>
-					<a key="Variants" style={getStyle('Variants')} onClick={this.setChoice.bind(this, 'Variants')}>Variants</a>
-				</div>
-				<div style={styles.content}>
-					<View />
-				</div>
+				<Grid fluid={true}>
+					<Row>
+						<Col xs={2}>
+							<div style={styles.logo}></div>
+							<a key="Dashboard" style={getStyle('Dashboard')} onClick={this.setChoice.bind(this, 'Dashboard')}>Dashboard</a>
+							<a key="Transactions" style={getStyle('Transactions')} onClick={this.setChoice.bind(this, 'Transactions')}>Transactions</a>
+							<a key="Users" style={getStyle('Users')} onClick={this.setChoice.bind(this, 'Users')}>Users</a>
+							<a key="Products" style={getStyle('Products')} onClick={this.setChoice.bind(this, 'Products')}>Products</a>
+							<a key="Variants" style={getStyle('Variants')} onClick={this.setChoice.bind(this, 'Variants')}>Variants</a>
+						</Col>
+						<Col xs={10}>
+							<div style={styles.content}>
+								<View />
+							</div>
+						</Col>
+					</Row>
+				</Grid>
 			</div>
 		);
 	}
