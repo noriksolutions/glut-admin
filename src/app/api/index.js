@@ -1,3 +1,5 @@
+'use strict';
+
 let request = require('superagent');
 let querystring = require('querystring');
 let getToken = require('../utils/getToken');

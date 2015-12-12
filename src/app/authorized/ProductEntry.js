@@ -144,12 +144,12 @@ class ProductEntry extends React.Component {
 					</Col>
 				</Row>
 				<Row>
-					<Col xs={6}>
+					<Col xs={3}>
 						 <Input type="checkbox" label="Digital"
 						 checked={!!this.state.product.digital}
 						 onChange={this.changeEntry.bind(this, 'digital')} />
 					</Col>
-					<Col xs={6}>
+					<Col xs={9}>
 						<Input type="text" value={this.state.product.downloadUrl}
 							placeholder="https://..."
 							label="Download URL"
