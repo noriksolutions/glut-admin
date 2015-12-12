@@ -27,7 +27,6 @@ class Products extends React.Component {
 		that.setState({ loading: true });
 		api.products.list()
 		.then(function(json) {
-			console.log(json);
 			that.setState({ loading: false });
 			that.setState({ products: json });
 		})

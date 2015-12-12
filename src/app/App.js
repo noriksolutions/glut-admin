@@ -35,11 +35,13 @@ class App extends React.Component {
 		.catch(function(err) {
 			window.alert('Could not get configuration.');
 		});
-		dispatcher.on('logout', this.onLogout.bind(this));
+		if (!this.boundOnLogout)
+			this.boundOnLogout = this.onLogout.bind(this);
+		dispatcher.on('logout', this.boundOnLogout);
 	}
 
 	componentWillUnmount() {
-		dispatcher.off('logout', this.onLogout.bind(this));
+		dispatcher.off('logout', this.boundOnLogout);
 	}
 
 	render() {

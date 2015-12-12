@@ -48,6 +48,22 @@ class ProductEntry extends React.Component {
 			}
 			product.tags = tagArray;
 		}
+		else if (stateName === 'weight.value') {
+			product.weight = product.weight || {};
+			product.weight.value = parseFloat(ev.target.value);
+		}
+		else if (stateName === 'weight.unit') {
+			product.weight = product.weight || {};
+			product.weight.unit = ev.target.value;
+		}
+		else if (/^dimensions\.(length|width|height)$/.test(stateName)) {
+			product.dimensions = product.dimensions || {};
+			product.dimensions[stateName.split('.')[1]] = parseFloat(ev.target.value);
+		}
+		else if (stateName === 'dimensions.unit') {
+			product.dimensions = product.dimensions || {};
+			product.dimensions.unit = ev.target.value;
+		}
 		else
 			product[stateName] = ev.target.value;
 		this.setState({ product });
@@ -99,7 +115,6 @@ class ProductEntry extends React.Component {
 		let button = null;
 		if (this.state.product._id)
 			button = (<Button onClick={this.setConfirmDelete.bind(this)} bsStyle="danger pull-right">Delete</Button>);
-		let quantityDisabled = !!this.state.product.digital;
 		return (
 			<div style={styles.productEntry}>
 				<Modal show={!!this.state.confirmDelete}>
@@ -140,7 +155,6 @@ class ProductEntry extends React.Component {
 								<Input type="text" value={this.state.product.quantity}
 									placeholder="x5"
 									label="Quantity"
-									disabled={quantityDisabled}
 									onChange={this.changeEntry.bind(this, 'quantity')} />
 							</Col>
 						</Row>
@@ -184,7 +198,49 @@ class ProductEntry extends React.Component {
 						checked={!!this.state.product.available}
 						onChange={this.changeEntry.bind(this, 'available')} />
 					</Col>
+				</Row>
+				<Row>
 					<Col xs={4}>
+						<Input type="text" value={_.get(this,'state.product.weight.value', 0)}
+							placeholder="0"
+							label="Weight Value"
+							onChange={this.changeEntry.bind(this, 'weight.value')} />
+					</Col>
+					<Col xs={4}>
+						<Input type="text" value={_.get(this,'state.product.weight.unit', '')}
+							placeholder="Kg"
+							label="Weight Unit"
+							onChange={this.changeEntry.bind(this, 'weight.unit')} />
+					</Col>
+				</Row>
+				<Row>
+					<Col xs={3}>
+						<Input type="text" value={_.get(this,'state.product.dimensions.length', 0)}
+							placeholder="0"
+							label="Length"
+							onChange={this.changeEntry.bind(this, 'dimensions.length')} />
+					</Col>
+					<Col xs={3}>
+						<Input type="text" value={_.get(this,'state.product.dimensions.width', 0)}
+							placeholder="0"
+							label="Width"
+							onChange={this.changeEntry.bind(this, 'dimensions.width')} />
+					</Col>
+					<Col xs={3}>
+						<Input type="text" value={_.get(this,'state.product.dimensions.height', 0)}
+							placeholder="0"
+							label="Height"
+							onChange={this.changeEntry.bind(this, 'dimensions.height')} />
+					</Col>
+					<Col xs={3}>
+						<Input type="text" value={_.get(this,'state.product.dimensions.unit', 0)}
+							placeholder="cm"
+							label="Unit"
+							onChange={this.changeEntry.bind(this, 'dimensions.height')} />
+					</Col>
+				</Row>
+				<Row>
+					<Col xs={12}>
 						<Button onClick={this.saveProduct.bind(this)} style={styles.saveButton} bsStyle="primary pull-right">Save</Button>
 						{button}
 					</Col>
