@@ -240,7 +240,7 @@ class ProductEntry extends React.Component {
 						<Input type="text" value={_.get(this,'state.product.dimensions.unit', 0)}
 							placeholder="cm"
 							label="Unit"
-							onChange={this.changeEntry.bind(this, 'dimensions.height')} />
+							onChange={this.changeEntry.bind(this, 'dimensions.unit')} />
 					</Col>
 				</Row>
 				<Row>
