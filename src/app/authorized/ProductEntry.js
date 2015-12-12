@@ -144,20 +144,24 @@ class ProductEntry extends React.Component {
 					</Col>
 				</Row>
 				<Row>
+					<Col xs={6}>
+						 <Input type="checkbox" label="Digital"
+						 checked={!!this.state.product.digital}
+						 onChange={this.changeEntry.bind(this, 'digital')} />
+					</Col>
+					<Col xs={6}>
+						<Input type="text" value={this.state.product.downloadUrl}
+							placeholder="https://..."
+							label="Download URL"
+							onChange={this.changeEntry.bind(this, 'downloadUrl')} />
+					</Col>
+				</Row>
+				<Row>
 					<Col md={3}>
-						<Row>
-							<Col xs={6}>
-								 <Input type="checkbox" label="Digital"
-								 checked={!!this.state.product.digital}
-								 onChange={this.changeEntry.bind(this, 'digital')} />
-							</Col>
-							<Col xs={6}>
-								<Input type="text" value={this.state.product.quantity}
-									placeholder="x5"
-									label="Quantity"
-									onChange={this.changeEntry.bind(this, 'quantity')} />
-							</Col>
-						</Row>
+						<Input type="text" value={this.state.product.quantity}
+							placeholder="x5"
+							label="Quantity"
+							onChange={this.changeEntry.bind(this, 'quantity')} />
 					</Col>
 					<Col md={3}>
 						<Input type="text" value={this.state.product.msrp}
